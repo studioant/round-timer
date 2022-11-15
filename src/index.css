@@ -88,6 +88,11 @@ body {
   width: 100%;
 }
 
+.btn-clock, .btn-round{
+  display: flex;
+  justify-content: center;
+}
+
 .task{
   background: #f4f4f4;
   margin: 5px;
