@@ -6,36 +6,34 @@ import Clock from "./components/Clock";
 import Timer from "./components/Timer";
 
 function App() {
-  // Total of 90 seconds
-  const totalTime = 90
+  var timer = 0;
   // States for clock and round
-  const [seconds, setSeconds] = useState(totalTime)
-  const [millis, setMillis] = useState(0)
   const [round, setRound] = useState(0)
-  const [start, setStart] = useState(false)
-  
-  const Dec = () => {
-    console.log("h");
-    // Decrement seconds
-    useEffect(() => {
-      if(start){
-        seconds > 0 && setTimeout(() => setSeconds(seconds - 1), 1000); 
-        setMillis(60)
-      }
-    }, [seconds])
-  }
-  // Decrement milliseconds
-  useEffect(() => {
-    if(start){
-      millis > 0 && setTimeout(() => setMillis(millis - 1), 10)
-    }
-  }, [millis])
+  const [time, setTime] = useState({ms:0, s:0, m:0})
+  const [started, setStarted] = useState(false)
 
-  const isStart = () => {
-    setStart(!start)
-    console.log(start)
+  const start = () => {
+    run()
+    // Flip started flag 
+    setStarted(!started)
+    // Run function at interval of 10 ms
+    setInterval(run, 10)
   }
+
+  var updatedMs = time.ms, updatedSec = time.s, updatedMin = time.m
   
+  const run = () => {
+    if(updatedSec >= 60 ){
+      updatedMin++
+      updatedSec = 0
+    }
+    if(updatedMs >= 100 ){
+      updatedSec++
+      updatedMs = 0
+    }
+    updatedMs++
+    return setTime({ms:updatedMs, s:updatedSec, m:updatedMin})
+  }
 
   return (
     <div className="container">
@@ -49,11 +47,12 @@ function App() {
       </div>
       <div className="container-clock">
         <Header title={'Clock'}/>
-        {start && <Timer />}
+        <Clock min={time.m} sec={time.s} ms={time.ms}/>
+        <Timer s={start}/>
         <div className="btn-clock">
-          <Button color='#567' text='Start' onClick={isStart}/>
-          <Button color='#567' text='Pause'/>
-          <Button color='#567' text='Reset'/>
+          <Button color='#06c258' text={started ? 'Stop' : 'Start'} onClick={start}/>
+          <Button color='#567' text='Pause' />
+          <Button color='#567' text='Reset' />
           <Button color='#567' text='+1 sec'/>
           <Button color='#567' text='-1 sec'/>
         </div>

@@ -27,7 +27,7 @@ body {
   max-width: 900px;
   margin: auto;
   overflow: auto;
-  border: solid;
+
 }
 
 .container-clock{
@@ -52,12 +52,10 @@ body {
   font-size: 10vw;
   font-weight: bold;
   text-align: center;
-  border: solid;
 }
 
 .timer{
   display: inline-block;
-  border: solid;
   width: 30%;
 }
 
@@ -98,10 +96,6 @@ body {
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
-}
-
-.task.reminder{
-  border-left: 5px solid green;
 }
 
 .task h3{
