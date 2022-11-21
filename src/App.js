@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./components/Button";
 import Header from "./components/Header"
 import Round from "./components/Round";
@@ -13,20 +13,21 @@ function App() {
   const [started, setStarted] = useState(false)
   const [inter, setInter] = useState(1)
 
+  useEffect(()=>{
+    if(!started){
+      clearInterval(inter)
+    } else {
+      setInter(setInterval(run, 10))
+    }
+  }, [started])
+
   const start = () => {
-    // Flip started flag 
-    setStarted(!started)
-    // Run function at interval of 10 ms
-    var i = setInterval(run, 10)
-    setInter(i)
-    console.log(inter)
+    if(time.ms > 0 || time.s > 0 || time.m > 0){
+      setStarted(!started)
+    }
   }
 
   const stop = () => {
-    // stop the clock
-    clearInterval(inter)
-    console.log(inter)
-    // flip the flag
     setStarted(!started)
   }
 
@@ -71,12 +72,7 @@ function App() {
 
       return setTime({ms:updatedMs, s:updatedSec, m:updatedMin})
     }
-    console.log(inter)
-    clearInterval(inter)
-  }
-
-  if(time.ms === 0 && time.s === 0 && time.m === 0){
-    console.log(inter)
+    stop()
   }
 
   return (
