@@ -1,38 +1,82 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "./components/Button";
 import Header from "./components/Header"
 import Round from "./components/Round";
 import Clock from "./components/Clock";
-import Timer from "./components/Timer";
+import AlarmSound from "./sounds/alarm.mp3"
 
 function App() {
-  var timer = 0;
+
   // States for clock and round
   const [round, setRound] = useState(0)
-  const [time, setTime] = useState({ms:0, s:0, m:0})
+  const [time, setTime] = useState({ms:0, s:3, m:0})
   const [started, setStarted] = useState(false)
+  const [inter, setInter] = useState(1)
 
   const start = () => {
-    run()
     // Flip started flag 
     setStarted(!started)
     // Run function at interval of 10 ms
-    setInterval(run, 10)
+    var i = setInterval(run, 10)
+    setInter(i)
+    console.log(inter)
+  }
+
+  const stop = () => {
+    // stop the clock
+    clearInterval(inter)
+    console.log(inter)
+    // flip the flag
+    setStarted(!started)
+  }
+
+  const reset = () => {
+    setTime({ms:0, s:30, m:1})
+  }
+
+  const playAlarm = () => {
+    var alarm = new Audio(AlarmSound)
+    alarm.play()
+  }
+
+  const inc = () => {
+    if(time.s < 59) 
+      setTime({ms:time.ms, s:time.s + 1, m:time.m})
+    else
+      setTime({ms:time.ms, s:0, m:time.m + 1})
+  }
+  
+  const dec = () => {
+    if(time.s > 0)
+      setTime({ms:time.ms, s:time.s - 1, m:time.m})
+    else
+      setTime({ms:time.ms, s:59, m:time.m - 1})
   }
 
   var updatedMs = time.ms, updatedSec = time.s, updatedMin = time.m
   
   const run = () => {
-    if(updatedSec >= 60 ){
-      updatedMin++
-      updatedSec = 0
+    if(updatedMs !== 0 || updatedSec !== 0 || updatedMin !== 0){
+      if(updatedSec === 0 && updatedMs === 0 && updatedMin !== 0){
+        updatedMin--
+        updatedSec = 60
+      }
+      if(updatedMs === 0 && updatedSec !== 0){
+        updatedSec--
+        updatedMs = 100
+      }
+      if(updatedMs !== 0){
+        updatedMs--
+      }
+
+      return setTime({ms:updatedMs, s:updatedSec, m:updatedMin})
     }
-    if(updatedMs >= 100 ){
-      updatedSec++
-      updatedMs = 0
-    }
-    updatedMs++
-    return setTime({ms:updatedMs, s:updatedSec, m:updatedMin})
+    console.log(inter)
+    clearInterval(inter)
+  }
+
+  if(time.ms === 0 && time.s === 0 && time.m === 0){
+    console.log(inter)
   }
 
   return (
@@ -46,15 +90,14 @@ function App() {
         </div>
       </div>
       <div className="container-clock">
-        <Header title={'Clock'}/>
+        <Header title={'Countdown Timer'}/>
         <Clock min={time.m} sec={time.s} ms={time.ms}/>
-        <Timer s={start}/>
         <div className="btn-clock">
-          <Button color='#06c258' text={started ? 'Stop' : 'Start'} onClick={start}/>
-          <Button color='#567' text='Pause' />
-          <Button color='#567' text='Reset' />
-          <Button color='#567' text='+1 sec'/>
-          <Button color='#567' text='-1 sec'/>
+          <Button color={started ? '#ca3433' :'#06a94d'} text={started ? 'Stop' : 'Start'} onClick={started ? stop : start}/>
+          <Button color='#567' text='Reset' onClick={reset} state={started}/>
+          <Button color='#567' text='+1 sec' onClick={inc}/>
+          <Button color='#567' text='-1 sec' onClick={dec}/>
+          <Button color='#567' text='Play' onClick={()=>playAlarm()}/>
         </div>
       </div>
     </div>

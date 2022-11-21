@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@font-face {
+  font-family: 'brush';
+  src: url(images/blowbrush.ttf)
+
+}
+
 
 * {
   box-sizing: border-box;
