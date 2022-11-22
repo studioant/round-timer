@@ -51,7 +51,7 @@ function App() {
   const dec = () => {
     if(time.s > 0)
       setTime({ms:time.ms, s:time.s - 1, m:time.m})
-    else
+    else if (time.m > 0)
       setTime({ms:time.ms, s:59, m:time.m - 1})
   }
 
