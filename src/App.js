@@ -14,6 +14,7 @@ function App() {
   const [inter, setInter] = useState(1)
 
   useEffect(()=>{
+    console.log("useEffect inter: "+inter)
     if(!started){
       clearInterval(inter)
     } else {
