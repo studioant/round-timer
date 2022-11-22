@@ -17,6 +17,13 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+.header{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .container{
   display: flex;
   max-width: 95vw;
@@ -33,25 +40,26 @@ body {
   max-width: 900px;
   margin: auto;
   overflow: auto;
+  text-align: center;
+}
 
+.container-round{
+  width: 45%;
+  border: solid;
+  text-align:left;
 }
 
 .container-clock{
   width: 100%;
 }
 
-.header{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
 .round{
-  font-size: 400px;
+  display: inline-block;
   font-size: 25vw;
   font-weight: bold;
-  text-align: center;
+  text-align: justify;
+  width: 60%;
+  border: solid;
 }
 
 .clock{
