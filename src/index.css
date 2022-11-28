@@ -39,6 +39,7 @@ body {
 .container-round, .container-clock{
   display: inline-block;
   max-width: 900px;
+  height: 90vh;
   margin: auto;
   overflow: auto;
   text-align: center;
@@ -50,7 +51,7 @@ body {
 }
 
 .container-clock{
-  width: 100%;
+  width: 60%;
   border: solid;
 }
 
@@ -59,7 +60,16 @@ body {
   font-size: 25vw;
   font-weight: bold;
   text-align: center;
+  height: 80%;
   width: 80%;
+  border: solid;
+}
+
+.inner-clock{
+  display: inline-block;
+  height: 80%;
+  width: 90%;
+  align-items: center;
   border: solid;
 }
 
@@ -71,8 +81,9 @@ body {
 
 .timer{
   display: inline-block;
-  width: 27%;
+  width: 30%;
   text-align: justify;
+  margin-top: 20%;
   border: solid;
 }
 
