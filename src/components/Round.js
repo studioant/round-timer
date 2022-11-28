@@ -1,7 +1,7 @@
 const Round = ({ round }) => {
   return (
     <div className="round">
-        {round}
+        {round < 10 ? (<div>0{round}</div>) : (<div>{round}</div>)}
     </div>
   )
 }
