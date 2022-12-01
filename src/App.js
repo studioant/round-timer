@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom"
 import Button from "./components/Button";
 import Header from "./components/Header"
 import Round from "./components/Round";
@@ -13,9 +14,20 @@ function App() {
   const [started, setStarted] = useState(false)
   const [zero, setZero] = useState(false)
   const [inter, setInter] = useState(1)
+  let [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(()=>{
-    console.log("useEffect inter: "+inter)
+    const url_params = new URLSearchParams(window.location.search)
+    if (url_params.has('m') || url_params.has('s') || url_params.has('ms')){
+      time.m  = url_params.get('m')
+      time.s  = url_params.get('s')
+      time.ms = url_params.get('ms')
+      console.log(time.m + ':' + time.s + '.' + time.ms)
+    }
+  }, [])
+
+  useEffect(()=>{
+    console.log("useEffect inter: " + inter)
     if(!started){
       clearInterval(inter)
     } else {
