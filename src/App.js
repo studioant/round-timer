@@ -14,15 +14,24 @@ function App() {
   const [started, setStarted] = useState(false)
   const [zero, setZero] = useState(false)
   const [inter, setInter] = useState(1)
-  let [searchParams, setSearchParams] = useSearchParams();
+  //const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(()=>{
     const url_params = new URLSearchParams(window.location.search)
-    if (url_params.has('m') || url_params.has('s') || url_params.has('ms')){
-      time.m  = url_params.get('m')
-      time.s  = url_params.get('s')
-      time.ms = url_params.get('ms')
-      console.log(time.m + ':' + time.s + '.' + time.ms)
+    if (url_params.has('min') || url_params.has('sec')){
+      let min = url_params.get('min')
+      let sec = url_params.get('sec')
+      console.log('User Selected Time: ' + min + ':' + sec)
+      if (sec > 59) {
+        alert('Seconds must be below 60')
+        sec = 0
+      }
+      if (min > 59) {
+        alert('Minutes must be below 60')
+        min = 0
+      }
+      setTime({ms:0, s:sec, m:min})
+      console.log('seconds: '+time.s)
     }
   }, [])
 
@@ -56,8 +65,10 @@ function App() {
   }
 
   const inc = () => {
-    if(time.s < 59) 
+    if(time.s < 59) {
+      console.log('increment: '+time.s)
       setTime({ms:time.ms, s:time.s + 1, m:time.m})
+    }
     else
       setTime({ms:time.ms, s:0, m:time.m + 1})
   }
