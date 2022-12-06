@@ -29,9 +29,9 @@ body {
   max-width: 95vw;
   margin: 30px auto;
   overflow: auto;
-  min-height: 90vh;
+  max-height: 95vh;
   border: 1px solid steelblue;
-  padding: 30px;
+  padding: 10px;
   border-radius: 5px;
 }
 
