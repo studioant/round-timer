@@ -14,7 +14,7 @@ function App() {
   const [started, setStarted] = useState(false)
   const [zero, setZero] = useState(false)
   const [inter, setInter] = useState(1)
-  //const [searchParams, setSearchParams] = useSearchParams();
+  const [paramsPresent, setParamsPresent] = useState(false);
 
   useEffect(()=>{
     const url_params = new URLSearchParams(window.location.search)
@@ -30,10 +30,12 @@ function App() {
         alert('Minutes must be below 60')
         min = 0
       }
-      setTime({ms:0, s:sec, m:min})
+      setTime({ms:0, s:parseInt(sec), m:parseInt(min)})
+      if(!paramsPresent)
+        setParamsPresent(true)
       console.log('seconds: '+time.s)
     }
-  }, [])
+  }, [setTime, paramsPresent])
 
   useEffect(()=>{
     console.log("useEffect inter: " + inter)
@@ -66,7 +68,7 @@ function App() {
 
   const inc = () => {
     if(time.s < 59) {
-      console.log('increment: '+time.s)
+      console.log('increment: ' + time.s)
       setTime({ms:time.ms, s:time.s + 1, m:time.m})
     }
     else
