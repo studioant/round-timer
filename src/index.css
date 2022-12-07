@@ -30,9 +30,9 @@ body {
   margin: 30px auto;
   overflow: auto;
   max-height: 95vh;
-  border: 1px solid steelblue;
+  /* border: 1px solid steelblue; */
   padding: 10px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 .container-round, .container-clock{

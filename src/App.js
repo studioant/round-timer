@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Button from "./components/Button";
 import Header from "./components/Header"
 import Round from "./components/Round";
 import Clock from "./components/Clock";
+import Navbar from "./components/Navbar";
 import AlarmSound from "./sounds/alarm.mp3"
 
 function App() {
@@ -12,7 +13,6 @@ function App() {
   const [round, setRound] = useState(0)
   const [time, setTime] = useState({ms:0, s:3, m:0})
   const [started, setStarted] = useState(false)
-  const [zero, setZero] = useState(false)
   const [inter, setInter] = useState(1)
   const [paramsPresent, setParamsPresent] = useState(false);
 
@@ -54,7 +54,6 @@ function App() {
 
   const stop = () => {
     setStarted(!started)
-    setZero(true)
   }
 
   const reset = () => {
@@ -104,7 +103,9 @@ function App() {
   }
 
   return (
+    <Router>
     <div className="container">
+      <Navbar/>
       <div className="container-round">
         <Header title={'Round'}/>
         <Round round={round}/>
@@ -128,6 +129,7 @@ function App() {
         </div>
       </div>
     </div>
+    </Router>
   );
 }
 
