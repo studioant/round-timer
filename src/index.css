@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 @font-face {
   font-family: 'brush';
-  src: url(images/blowbrush.ttf)
-
+  src: url(images/blowbrush.ttf);
+  font-family: 'digital';
+  src: url(images/wwDigital.ttf);
 }
 
 * {
@@ -73,14 +74,15 @@ body {
 }
 
 .clock{
-  font-size: 10vw;
-  font-weight: bold;
+  font-family: 'digital';
+  font-size: 7vw;
+  /* font-weight: bold; */
   text-align: center;
 }
 
 .timer{
   display: inline-block;
-  width: 30%;
+  width: 20%;
   text-align: justify;
   margin-top: 20%;
   /* border: solid; */
