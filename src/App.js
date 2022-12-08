@@ -104,8 +104,8 @@ function App() {
 
   return (
     <Router>
-    <div className="container">
       <Navbar/>
+    <div className="container">
       <div className="container-round">
         <Header title={'Round'}/>
         <Round round={round}/>
@@ -116,7 +116,7 @@ function App() {
         </div>
       </div>
       <div className="container-clock">
-        <Header title={'Countdown Timer'}/>
+        <Header title={'Timer'}/>
         <div className="inner-clock">
           <Clock min={time.m} sec={time.s} ms={time.ms}/>
         </div>

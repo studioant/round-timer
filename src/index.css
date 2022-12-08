@@ -38,7 +38,7 @@ body {
 .container-round, .container-clock{
   display: inline-block;
   max-width: 900px;
-  height: 90vh;
+  height: 85vh;
   margin: auto;
   overflow: auto;
   text-align: center;
@@ -84,6 +84,28 @@ body {
   text-align: justify;
   margin-top: 20%;
   /* border: solid; */
+}
+
+.navbar {
+  display: flex;
+  background-image: linear-gradient(to right, rgb(50, 80, 161), #666, rgb(110, 52, 117));
+  padding: 10px;
+}
+
+.navbar-brand {
+  flex: 2;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nav-link {
+  flex: 1;
+  color: #ffffff;
+  font-size: 18px;
+  padding: 0 20px;
+  text-decoration: none;
 }
 
 .btn{
