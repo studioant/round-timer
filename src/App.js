@@ -5,17 +5,26 @@ import Header from "./components/Header"
 import Round from "./components/Round";
 import Clock from "./components/Clock";
 import Navbar from "./components/Navbar";
-import AlarmSound from "./sounds/alarm.mp3"
+import alarm from "./sounds/alarm.mp3"
+import bell from "./sounds/bell.mp3"
 
 function App() {
 
   // States for clock and round
   const [round, setRound] = useState(0)
-  const [time, setTime] = useState({ms:0, s:30, m:1})
+  const [time, setTime] = useState({ms:0, s:1, m:0})
   const [started, setStarted] = useState(false)
   const [inter, setInter] = useState(1)
   const [paramsPresent, setParamsPresent] = useState(false);
+  const [sound, setSound] = useState({alarm:false, bell:true})
+  const [zero, setZero] = useState(false)
 
+  // When timer reaches zero, play the alarm sound
+  useEffect(()=>{
+    playAlarm()
+  }, [zero])
+
+  // Set the time using parameters passed in the URL
   useEffect(()=>{
     const url_params = new URLSearchParams(window.location.search)
     if (url_params.has('min') || url_params.has('sec')){
@@ -37,8 +46,8 @@ function App() {
     }
   }, [setTime, paramsPresent])
 
+  // Set and clear the interval for the timer 
   useEffect(()=>{
-    console.log("useEffect inter: " + inter)
     if(!started){
       clearInterval(inter)
     } else {
@@ -61,10 +70,14 @@ function App() {
   }
 
   const playAlarm = () => {
-    var alarm = new Audio(AlarmSound)
-    alarm.play()
+    if (sound.bell)
+      var audio = new Audio(bell)
+    if (sound.alarm)
+      var audio = new Audio(alarm)
+    audio.play()
   }
 
+  // Plus 1 second
   const inc = () => {
     if(time.s < 59) {
       console.log('increment: ' + time.s)
@@ -74,6 +87,7 @@ function App() {
       setTime({ms:time.ms, s:0, m:time.m + 1})
   }
   
+  // Minus 1 second
   const dec = () => {
     if(time.s > 0)
       setTime({ms:time.ms, s:time.s - 1, m:time.m})
@@ -81,8 +95,10 @@ function App() {
       setTime({ms:time.ms, s:59, m:time.m - 1})
   }
 
+  // Get current time
   var updatedMs = time.ms, updatedSec = time.s, updatedMin = time.m
   
+  // Run the timer
   const run = () => {
     if(updatedMs !== 0 || updatedSec !== 0 || updatedMin !== 0){
       if(updatedSec === 0 && updatedMs === 0 && updatedMin !== 0){
@@ -96,9 +112,13 @@ function App() {
       if(updatedMs !== 0){
         updatedMs--
       }
-
+      
+      // Update the time
       return setTime({ms:updatedMs, s:updatedSec, m:updatedMin})
     }
+    // Timer has reached zero, Set zero
+    setZero(true)
+    // Raise stop flag
     stop()
   }
 
@@ -125,7 +145,6 @@ function App() {
           <Button color='#804040' text='Reset' onClick={reset} state={started}/>
           <Button color='#567' text='+1 sec' onClick={()=>{!started && (inc())}}/>
           <Button color='#567' text='-1 sec' onClick={()=>{!started && (dec())}}/>
-          <Button color='#567' text='Play' onClick={()=>playAlarm()}/>
         </div>
       </div>
     </div>

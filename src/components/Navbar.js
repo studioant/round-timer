@@ -7,8 +7,8 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link className="nav-link" href="#features">Clock</Nav.Link>
-            <Nav.Link className="nav-link" href="#pricing">Settings</Nav.Link>
+            <Nav.Link className="nav-link" href="">Clock</Nav.Link>
+            <Nav.Link className="nav-link" href="">Settings</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
