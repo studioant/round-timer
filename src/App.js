@@ -11,7 +11,7 @@ function App() {
 
   // States for clock and round
   const [round, setRound] = useState(0)
-  const [time, setTime] = useState({ms:0, s:3, m:0})
+  const [time, setTime] = useState({ms:0, s:30, m:1})
   const [started, setStarted] = useState(false)
   const [inter, setInter] = useState(1)
   const [paramsPresent, setParamsPresent] = useState(false);
