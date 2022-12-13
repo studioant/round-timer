@@ -11,8 +11,9 @@ import bell from "./sounds/bell.mp3"
 function App() {
 
   // States for clock and round
+  let default_time = {m:0, s:1, ms:0}
   const [round, setRound] = useState(0)
-  const [time, setTime] = useState({ms:0, s:1, m:0})
+  const [time, setTime] = useState(default_time)
   const [started, setStarted] = useState(false)
   const [inter, setInter] = useState(1)
   const [paramsPresent, setParamsPresent] = useState(false);
@@ -21,8 +22,10 @@ function App() {
 
   // When timer reaches zero, play the alarm sound
   useEffect(()=>{
-    playAlarm()
-  }, [zero])
+    if(time.ms === 0 && time.s === 0 && time.m === 0 && zero){
+      playAlarm()
+    }
+  }, [zero, time])
 
   // Set the time using parameters passed in the URL
   useEffect(()=>{
@@ -30,7 +33,6 @@ function App() {
     if (url_params.has('min') || url_params.has('sec')){
       let min = url_params.get('min')
       let sec = url_params.get('sec')
-      console.log('User Selected Time: ' + min + ':' + sec)
       if (sec > 59) {
         alert('Seconds must be below 60')
         sec = 0
@@ -42,7 +44,6 @@ function App() {
       setTime({ms:0, s:parseInt(sec), m:parseInt(min)})
       if(!paramsPresent)
         setParamsPresent(true)
-      console.log('seconds: '+time.s)
     }
   }, [setTime, paramsPresent])
 
@@ -55,20 +56,24 @@ function App() {
     }
   }, [started])
 
+  // Flip the started flag 
   const start = () => {
     if(time.ms > 0 || time.s > 0 || time.m > 0){
       setStarted(!started)
     }
   }
 
+  // Flip the started flag 
   const stop = () => {
     setStarted(!started)
   }
 
+  // Reset the time to the specified default
   const reset = () => {
-    setTime({ms:0, s:30, m:1})
+    setTime({m:1, s:30, ms:0})
   }
 
+  // Play the audio
   const playAlarm = () => {
     if (sound.bell)
       var audio = new Audio(bell)
@@ -79,10 +84,8 @@ function App() {
 
   // Plus 1 second
   const inc = () => {
-    if(time.s < 59) {
-      console.log('increment: ' + time.s)
+    if(time.s < 59)
       setTime({ms:time.ms, s:time.s + 1, m:time.m})
-    }
     else
       setTime({ms:time.ms, s:0, m:time.m + 1})
   }
