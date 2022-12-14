@@ -1,11 +1,24 @@
-const Clock = ({ min, sec, ms }) => {
-  return (
-    <div className="clock">
-        {min >= 10 ? (<div contentEditable="true" className="timer">{min}</div>) : (<div className="timer">0{min}</div>)}<span>:</span>
-        {sec >= 10 ? (<div className="timer">{sec}</div>) : (<div className="timer">0{sec}</div>)}<span>.</span>
-        {ms  >= 10 ? (<div className="timer">{ms}</div>)  : (<div className="timer">0{ms} </div>)}
-    </div>
-  )
+import { useEffect, useState } from "react"
+
+const Clock = () => {
+    const [time, setTime] = useState(new Date());
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+        setTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div className="inner-clock">
+            The current time in your area is
+            <div className="clock">
+                {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
+            </div>
+        </div>
+    )
 }
 
 export default Clock

@@ -15,7 +15,8 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background-color:aliceblue;
+  background-color:white;
+  /* background: linear-gradient(to right, rgba(216, 195, 219, 0.445), rgb(221, 219, 219), rgba(198, 213, 255, 0.753)); */
 }
 
 .header{
