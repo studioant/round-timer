@@ -138,8 +138,8 @@ function App() {
               <Header title={'Round'}/>
               <Round round={round}/>
               <div className="btn-round">
-                <Button color='#567' text='Decrement' onClick={()=> {round > 0 && (setRound(round => round - 1))}}/>
-                <Button color='#345' text='Increment' onClick={()=>setRound(round => round + 1)}/>
+                <Button color='#345' text='+' onClick={()=>setRound(round => round + 1)}/>
+                <Button color='#567' text='-' onClick={()=> {round > 0 && (setRound(round => round - 1))}}/>
                 <Button color='#804040' text='Reset' onClick={()=>setRound(0)}/>
               </div>
             </div>

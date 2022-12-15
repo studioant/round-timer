@@ -57,9 +57,11 @@ body {
 }
 
 .round{
+  font-family: 'digital';
+  color: #333;
   display: inline-block;
   font-size: 25vw;
-  font-weight: bold;
+  /* font-weight: bold; */
   text-align: center;
   height: 80%;
   width: 80%;
@@ -80,6 +82,7 @@ body {
 .clock{
   font-family: 'digital';
   font-size: 7vw;
+  color: #333;
   /* font-weight: bold; */
   text-align: center;
 }
@@ -92,9 +95,15 @@ body {
   /* border: solid; */
 }
 
+.time{
+  font-size: 10vw;
+  width: 30%;
+  margin-top: 20%;
+}
+
 .navbar {
   display: flex;
-  background-image: linear-gradient(to right, rgb(50, 80, 161), #666, rgb(110, 52, 117));
+  background-image: linear-gradient(to right, rgb(114, 70, 87), #666, rgb(74, 54, 94));
   padding: 10px;
 }
 

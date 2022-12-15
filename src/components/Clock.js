@@ -12,10 +12,12 @@ const Clock = () => {
     }, []);
 
     return (
-        <div className="inner-clock">
-            The current time in your area is
+        <div className="container-clock">
+            <span>The current time in your area is</span>
             <div className="clock">
-                {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
+                {time.getHours() > 9 ? (<div className="timer time">{time.toLocaleTimeString('en-US', { hour: '2-digit', hour12: false })}:</div>) : (<div className="timer time">0{time.toLocaleTimeString('en-US', { hour: '2-digit', hour12: false })}:</div>)}
+                {time.getMinutes() > 9 ? (<div className="timer time">{time.toLocaleTimeString('en-US', { minute: '2-digit' })}.</div>) : (<div className="timer time">0{time.toLocaleTimeString('en-US', { minute: '2-digit' })}.</div>)}
+                {time.getSeconds() > 9 ? (<div className="timer time">{time.toLocaleTimeString('en-US', { second: '2-digit' })}</div>) : (<div className="timer time">0{time.toLocaleTimeString('en-US', { second: '2-digit' })}</div>)}
             </div>
         </div>
     )
