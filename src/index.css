@@ -30,9 +30,9 @@ body {
   display: flex;
   max-width: 95vw;
   margin: 30px auto;
-  overflow: auto;
+  /* overflow: auto; */
   max-height: 95vh;
-  /* border: 1px solid steelblue; */
+  border: 1px solid steelblue;
   padding: 10px;
   /* border-radius: 5px; */
 }
@@ -85,14 +85,23 @@ body {
   color: #333;
   /* font-weight: bold; */
   text-align: center;
+  border: solid;
+  margin: 0;
+  padding: 0;
 }
 
 .timer{
   display: inline-block;
   width: 20%;
   text-align: justify;
-  margin-top: 30%;
+  /* margin-top: 30%; */
   /* border: solid; */
+}
+
+.timer-circle{
+  box-sizing: border-box;
+  width: 400px;
+  height: 400px;
 }
 
 .time{

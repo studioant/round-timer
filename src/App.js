@@ -9,6 +9,7 @@ import Clock from "./components/Clock";
 import alarm from "./sounds/alarm.mp3"
 import bell from "./sounds/bell.mp3"
 import Settings from "./components/Settings";
+import CircleTimer from "./components/CircleTImer";
 
 function App() {
 
@@ -146,7 +147,7 @@ function App() {
             <div className="container-clock">
               <Header title={'Timer'}/>
               <div className="inner-clock">
-                <Timer min={time.m} sec={time.s} ms={time.ms}/>
+                <CircleTimer min={time.m} sec={time.s} ms={time.ms}/>
               </div>
               <div className="btn-clock">
                 <Button color={started ? '#ca3433' :'#06a94d'} text={started ? 'Stop' : 'Start'} onClick={started ? stop : start}/>
@@ -157,7 +158,7 @@ function App() {
             </div>
           </>} />
           {/* Settings page */}
-          <Route path="/settings" element={<Settings/>}/>
+          <Route path="/settings" element={ <Settings/> }/>
           {/* Clock page */}
           <Route path="/clock" element={<Clock/>}/>
         </Routes>
