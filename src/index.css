@@ -62,7 +62,7 @@ body {
   display: inline-block;
   font-size: 25vw;
   /* font-weight: bold; */
-  text-align: center;
+  text-align: justify;
   height: 80%;
   width: 80%;
   margin: 0;
@@ -72,30 +72,32 @@ body {
 .inner-clock{
   display: inline-block;
   height: 80%;
-  width: 90%;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  /* border: solid; */
+  text-align: justify;
+  border: solid;
 }
 
 .clock{
+  display: flex;
   font-family: 'digital';
-  font-size: 7vw;
+  font-size: 3vw;
   color: #333;
   /* font-weight: bold; */
-  text-align: center;
+  justify-content: center;
+  align-items: center;
+  text-align: justify;
   border: solid;
-  margin: 0;
-  padding: 0;
+  padding: 20px;
+  width: auto;
 }
 
 .timer{
   display: inline-block;
-  width: 20%;
+  width: 100%;
   text-align: justify;
   /* margin-top: 30%; */
-  /* border: solid; */
+  border: solid;
 }
 
 .timer-circle{
