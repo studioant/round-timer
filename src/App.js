@@ -14,7 +14,7 @@ import CircleTimer from "./components/CircleTImer";
 function App() {
 
   // States for clock and round
-  let default_time = {m:0, s:1, ms:0}
+  let default_time = {m:0, s:0, ms:0}
   const [round, setRound] = useState(0)
   const [time, setTime] = useState(default_time)
   const [started, setStarted] = useState(false)
@@ -32,10 +32,18 @@ function App() {
 
   // Set the time using parameters passed in the URL
   useEffect(()=>{
+    let min, sec
     const url_params = new URLSearchParams(window.location.search)
-    if (url_params.has('min') || url_params.has('sec')){
-      let min = url_params.get('min')
-      let sec = url_params.get('sec')
+    if (url_params.has('min') || url_params.has('sec')) 
+    {
+      if (url_params.has('min'))
+        min = url_params.get('min')
+      else
+        min = 0
+      if (url_params.has('sec'))
+        sec = url_params.get('sec')
+      else
+        sec = 0
       if (sec > 59) {
         alert('Seconds must be below 60')
         sec = 0
@@ -44,6 +52,7 @@ function App() {
         alert('Minutes must be below 60')
         min = 0
       }
+      console.log(time)
       setTime({ms:0, s:parseInt(sec), m:parseInt(min)})
       if(!paramsPresent)
         setParamsPresent(true)
