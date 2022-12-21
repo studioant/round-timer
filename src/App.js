@@ -22,6 +22,7 @@ function App() {
   const [paramsPresent, setParamsPresent] = useState(false);
   const [sound, setSound] = useState({alarm:false, bell:true})
   const [zero, setZero] = useState(false)
+  const [changed, setChanged] = useState(false)
 
   // When timer reaches zero, play the alarm sound
   useEffect(()=>{
@@ -83,6 +84,7 @@ function App() {
   // Reset the time to the specified default
   const reset = () => {
     setTime({m:1, s:30, ms:0})
+    setChanged(true)
   }
 
   // Play the audio
@@ -96,6 +98,7 @@ function App() {
 
   // Plus 1 second
   const inc = () => {
+    setChanged(true)
     if(time.s < 59)
       setTime({ms:time.ms, s:time.s + 1, m:time.m})
     else
@@ -104,6 +107,7 @@ function App() {
   
   // Minus 1 second
   const dec = () => {
+    setChanged(true)
     if(time.s > 0)
       setTime({ms:time.ms, s:time.s - 1, m:time.m})
     else if (time.m > 0)
@@ -156,7 +160,7 @@ function App() {
             <div className="container-clock">
               <Header title={'Timer'}/>
               <div className="inner-clock">
-                <CircleTimer min={time.m} sec={time.s} ms={time.ms} started={started}/>
+                <CircleTimer min={time.m} sec={time.s} ms={time.ms} started={started} changed={changed}/>
               </div>
               <div className="btn-clock">
                 <Button color={started ? '#ca3433' :'#06a94d'} text={started ? 'Stop' : 'Start'} onClick={started ? stop : start}/>

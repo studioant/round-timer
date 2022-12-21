@@ -2,29 +2,35 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { useEffect, useState } from 'react';
 import Timer from './Timer';
 
-const CircleTimer = ({ min, sec, ms, started }) => {
+const CircleTimer = ({ min, sec, ms, started, changed }) => {
     //console.log(sec)
     const [dur, setDur] = useState(0)
     const [time, setTime] = useState(false)
+    const [showMessage, setShowMessage] = useState(false)
 
     //console.log(dur)
 
     useEffect(()=>{
+        console.log('setting duration: '+dur)
         setDur((min*60) + sec)
         if(!time) setTime(true)
-    }, [time])
+    }, [time, changed])
 
     const style = {
         display: 'inline-block !important'
+    }
+
+    const onComplete = () => {
+        setShowMessage(true)
     }
 
     return (
         <CountdownCircleTimer
             isPlaying = {started}
             duration = {dur}
-            strokeWidth = {40}
+            strokeWidth = {50}
             segments={2}
-            onComplete = {() => console.log('Finished!')}
+            onComplete = {() => onComplete()}
             colors = {[['#7a96ea'],['#1a961a']]}
             size = {600}
             style={style}
@@ -33,11 +39,12 @@ const CircleTimer = ({ min, sec, ms, started }) => {
             {/* Child element renders the time */}
             {({ childrenProps }) => (
                 <div {...childrenProps} style={{ display: 'inline-block !important' }}>
-                    <Timer min={min} sec={sec} ms={ms}/>
+                    {showMessage ? <div className='clock'>Time Up!</div> 
+                    : <Timer min={min} sec={sec} ms={ms}/>}
                 </div>
             )}
-
         </CountdownCircleTimer>
+        
     );
 }
 
