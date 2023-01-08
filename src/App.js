@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Button from "./components/Button";
+import Button from "./components/Button"
 import Header from "./components/Header"
-import Round from "./components/Round";
-import Timer from "./components/Timer";
-import Navbar from "./components/Navbar";
-import Clock from "./components/Clock";
+import Round from "./components/Round"
+import Navbar from "./components/Navbar"
+import Clock from "./components/Clock"
 import alarm from "./sounds/alarm.mp3"
 import bell from "./sounds/bell.mp3"
-import Settings from "./components/Settings";
-import CircleTimer from "./components/CircleTImer";
+import Settings from "./components/Settings"
+import CircleTimer from "./components/CircleTimer"
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 function App() {
 
