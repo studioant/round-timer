@@ -73,6 +73,7 @@ function App() {
   const start = () => {
     if(time.ms > 0 || time.s > 0 || time.m > 0){
       setStarted(!started)
+      setChanged(false)
     }
   }
 

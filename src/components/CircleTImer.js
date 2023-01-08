@@ -11,7 +11,6 @@ const CircleTimer = ({ min, sec, ms, started, changed }) => {
     //console.log(dur)
 
     useEffect(()=>{
-        console.log('setting duration: '+dur)
         setDur((min*60) + sec)
         if(!time) setTime(true)
     }, [time, changed])
@@ -27,6 +26,7 @@ const CircleTimer = ({ min, sec, ms, started, changed }) => {
     return (
         <CountdownCircleTimer
             isPlaying = {started}
+            key={changed}
             duration = {dur}
             strokeWidth = {50}
             segments={2}
