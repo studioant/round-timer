@@ -84,7 +84,7 @@ function App() {
 
   // Reset the time to the specified default
   const reset = () => {
-    setTime({m:1, s:30, ms:0})
+    setTime(default_time)
     setChanged(true)
   }
 
@@ -161,7 +161,7 @@ function App() {
             <div className="container-clock">
               <Header title={'Timer'}/>
               <div className="inner-clock">
-                <CircleTimer min={time.m} sec={time.s} ms={time.ms} started={started} changed={changed}/>
+                <CircleTimer min={time.m} sec={time.s} ms={time.ms} started={started} changed={changed} setTimerTime={setTime}/>
               </div>
               <div className="btn-clock">
                 <Button color={started ? '#ca3433' :'#06a94d'} text={started ? 'Stop' : 'Start'} onClick={started ? stop : start}/>
