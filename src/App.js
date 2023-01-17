@@ -54,7 +54,8 @@ function App() {
         min = 0
       }
       console.log(time)
-      setTime({ms:0, s:parseInt(sec), m:parseInt(min)})
+      if(paramsPresent)
+        setTime({ms:0, s:parseInt(sec), m:parseInt(min)})
       if(!paramsPresent)
         setParamsPresent(true)
     }

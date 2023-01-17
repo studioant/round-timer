@@ -14,72 +14,61 @@ const Timer = ({ min, sec, ms, setTime }) => {
   }
 
   useEffect(() => {
-    var input = document.getElementById("min");
-    input.addEventListener("input", validateInput)
+    var min = document.getElementById("min")
+    var sec = document.getElementById("sec")
+    min.addEventListener("input", validateInput)
+    sec.addEventListener("input", validateInput)
   })
 
+  useEffect(() => {
+    
+  })
+
+  const zeroPad = (num, places) => {
+    String(num).padStart(places, '0')
+  }
+
+  const initialMin = () => {
+    if(min < 10)
+      setTime({m:"0"+min, s:sec, ms: ms})
+  }
+
   const setMin = (event) => {
-    setTime({ m: parseInt(event.target.innerText), s:sec, ms: ms })
-    console.log(parseInt(event.target.innerText))
-    console.log('setTime')
+    var minutes = zeroPad(event.target.innerText, 2)
+    setTime({ m: parseInt(minutes), s:sec, ms: ms })
+  }
+
+  const setSec = (event) => {
+    setTime({ m:min, s:parseInt(event.target.innerText), ms: ms })
   }
 
   return (
     <div className="clock">
-      {min >= 10 ? (
-        <div
-          id="min"
-          contentEditable={true}
-          suppressContentEditableWarning={true}
-          dangerouslySetInnerHTML={{ __html: min }}
-          onInput={setMin}
-          className="timer"
-        />
-      ) : (
-        <div
-          id="min"
-          contentEditable={true}
-          suppressContentEditableWarning={true}
-          dangerouslySetInnerHTML={{ __html: min }}
-          onInput={setMin}
-          className="timer"
-        />
-      )}
+      <div
+        id="min"
+        contentEditable={true}
+        suppressContentEditableWarning={true}
+        dangerouslySetInnerHTML={{ __html: min }}
+        onInput={setMin}
+        className="timer"
+      />
       <span>:</span>
-      {sec >= 10 ? (
-        <div
-          contentEditable={true}
-          suppressContentEditableWarning={true}
-          className="timer"
-        >
-          {sec}
-        </div>
-      ) : (
-        <div
-          contentEditable={true}
-          suppressContentEditableWarning={true}
-          className="timer"
-        >
-          0{sec}
-        </div>
-      )}
+      <div id="sec"
+        contentEditable={true}
+        suppressContentEditableWarning={true}
+        dangerouslySetInnerHTML={{ __html: sec }}
+        onInput={setSec}
+        className="timer"
+      />
       <span>.</span>
-      {ms >= 10 ? (
-        <div
-          contentEditable={true}
-          suppressContentEditableWarning={true}
-          className="timer"
-        >
-          {ms}
-        </div>
+      {ms > 9 ? (
+      <div className="timer">
+        {ms}
+      </div>
       ) : (
-        <div
-          contentEditable={true}
-          suppressContentEditableWarning={true}
-          className="timer"
-        >
-          0{ms}{" "}
-        </div>
+      <div className="timer">
+        0{ms}
+      </div>
       )}
     </div>
   );
