@@ -14,7 +14,8 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 function App() {
 
   // States for clock and round
-  let default_time = {m:0, s:0, ms:0}
+  var defaultT = ('0' + 0).slice(-2)
+  let default_time = {m:defaultT, s:30, ms:0}
   const [round, setRound] = useState(0)
   const [time, setTime] = useState(default_time)
   const [started, setStarted] = useState(false)

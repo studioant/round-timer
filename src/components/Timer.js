@@ -20,22 +20,8 @@ const Timer = ({ min, sec, ms, setTime }) => {
     sec.addEventListener("input", validateInput)
   })
 
-  useEffect(() => {
-    
-  })
-
-  const zeroPad = (num, places) => {
-    String(num).padStart(places, '0')
-  }
-
-  const initialMin = () => {
-    if(min < 10)
-      setTime({m:"0"+min, s:sec, ms: ms})
-  }
-
   const setMin = (event) => {
-    var minutes = zeroPad(event.target.innerText, 2)
-    setTime({ m: parseInt(minutes), s:sec, ms: ms })
+    setTime({ m: event.target.innerText, s:sec, ms: ms })
   }
 
   const setSec = (event) => {
