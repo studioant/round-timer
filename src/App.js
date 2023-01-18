@@ -163,7 +163,7 @@ function App() {
             <div className="container-clock">
               <Header title={'Timer'}/>
               <div className="inner-clock">
-                <CircleTimer min={time.m} sec={time.s} ms={time.ms} started={started} changed={changed} setTimerTime={setTime}/>
+                <CircleTimer min={time.m} sec={time.s} ms={time.ms} started={started} changed={changed} setChanged={setChanged} setTimerTime={setTime}/>
               </div>
               <div className="btn-clock">
                 <Button color={started ? '#ca3433' :'#06a94d'} text={started ? 'Stop' : 'Start'} onClick={started ? stop : start}/>

@@ -2,7 +2,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { useEffect, useState } from 'react';
 import Timer from './Timer';
 
-const CircleTimer = ({ min, sec, ms, started, changed, setTimerTime }) => {
+const CircleTimer = ({ min, sec, ms, started, changed, setChanged, setTimerTime }) => {
     //console.log(sec)
     const [dur, setDur] = useState(0)
     const [time, setTime] = useState(false)
@@ -41,7 +41,7 @@ const CircleTimer = ({ min, sec, ms, started, changed, setTimerTime }) => {
                 {({ childrenProps }) => (
                     <div {...childrenProps} style={{ display: 'inline-block !important' }}>
                         {showMessage ? <div className='clock'>Time Up!</div> 
-                        : <Timer min={min} sec={sec} ms={ms} setTime={setTimerTime}/>}
+                        : <Timer min={min} sec={sec} ms={ms} setTime={setTimerTime} setChanged={setChanged}/>}
                     </div>
                 )}
             </CountdownCircleTimer>
