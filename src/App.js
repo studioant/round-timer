@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
 import Button from "./components/Button"
 import Header from "./components/Header"
 import Round from "./components/Round"
 import Navbar from "./components/Navbar"
 import Clock from "./components/Clock"
-import alarm from "./sounds/alarm.mp3"
-import bell from "./sounds/bell.mp3"
 import Settings from "./components/Settings"
 import CircleTimer from "./components/CircleTimer"
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
+import alarm from "./sounds/alarm.mp3"
+import bell from "./sounds/bell.mp3"
 
 function App() {
 
@@ -24,6 +25,8 @@ function App() {
   const [sound, setSound] = useState({alarm:false, bell:true})
   const [zero, setZero] = useState(false)
   const [changed, setChanged] = useState(false)
+  const [reset, setReset] = useState(false)
+  const [lastTime, setLastTime] = useState(default_time)
 
   // When timer reaches zero, play the alarm sound
   useEffect(()=>{
@@ -85,9 +88,10 @@ function App() {
   }
 
   // Reset the time to the specified default
-  const reset = () => {
-    setTime(default_time)
+  const doReset = () => {
+    setTime(lastTime)
     setChanged(true)
+    setReset(true)
   }
 
   // Play the audio
@@ -163,11 +167,11 @@ function App() {
             <div className="container-clock">
               <Header title={'Timer'}/>
               <div className="inner-clock">
-                <CircleTimer min={time.m} sec={time.s} ms={time.ms} started={started} changed={changed} setChanged={setChanged} setTimerTime={setTime}/>
+                <CircleTimer min={time.m} sec={time.s} ms={time.ms} started={started} changed={changed} setChanged={setChanged} setTimerTime={setTime} setStarted={setStarted} setLastTime={setLastTime} reset={reset}/>
               </div>
               <div className="btn-clock">
                 <Button color={started ? '#ca3433' :'#06a94d'} text={started ? 'Stop' : 'Start'} onClick={started ? stop : start}/>
-                <Button color='#804040' text='Reset' onClick={reset} state={started}/>
+                <Button color='#804040' text='Reset' onClick={doReset} state={started}/>
                 <Button color='#567' text='+1 sec' onClick={()=>{!started && (inc())}}/>
                 <Button color='#567' text='-1 sec' onClick={()=>{!started && (dec())}}/>
               </div>

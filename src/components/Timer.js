@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const Timer = ({ min, sec, ms, setTime, setChanged }) => {
+const Timer = ({ min, sec, ms, setTime, setChanged, setLastTime }) => {
   const validateInput = (e) => {
     var input = e.target;
     if (!isNaN(input.innerText)) {
@@ -22,11 +22,13 @@ const Timer = ({ min, sec, ms, setTime, setChanged }) => {
 
   const setMin = (event) => {
     setTime({ m: event.target.innerText, s:sec, ms: ms })
+    setLastTime({ m: event.target.innerText, s:sec, ms: ms })
     setChanged(true)
   }
 
   const setSec = (event) => {
     setTime({ m:min, s:parseInt(event.target.innerText), ms: ms })
+    setLastTime({ m:min, s:parseInt(event.target.innerText), ms: ms })
     setChanged(true)
   }
 
