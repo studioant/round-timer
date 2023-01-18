@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 
 const Timer = ({ min, sec, ms, setTime, setChanged, setLastTime }) => {
+  var minute = min.toString().padStart(2, "0");
+  var second = sec.toString().padStart(2, "0");
+
   const validateInput = (e) => {
     var input = e.target;
     if (!isNaN(input.innerText)) {
@@ -21,14 +24,14 @@ const Timer = ({ min, sec, ms, setTime, setChanged, setLastTime }) => {
   })
 
   const setMin = (event) => {
-    setTime({ m: event.target.innerText, s:sec, ms: ms })
-    setLastTime({ m: event.target.innerText, s:sec, ms: ms })
+    setTime({ m: event.target.innerText, s:sec, ms: 0 })
+    setLastTime({ m: event.target.innerText, s:sec, ms: 0 })
     setChanged(true)
   }
 
   const setSec = (event) => {
-    setTime({ m:min, s:parseInt(event.target.innerText), ms: ms })
-    setLastTime({ m:min, s:parseInt(event.target.innerText), ms: ms })
+    setTime({ m:min, s:parseInt(event.target.innerText), ms: 0 })
+    setLastTime({ m:min, s:parseInt(event.target.innerText), ms: 0 })
     setChanged(true)
   }
 
@@ -38,7 +41,7 @@ const Timer = ({ min, sec, ms, setTime, setChanged, setLastTime }) => {
         id="min"
         contentEditable={true}
         suppressContentEditableWarning={true}
-        dangerouslySetInnerHTML={{ __html: min }}
+        dangerouslySetInnerHTML={{ __html: minute }}
         onInput={setMin}
         className="timer"
       />
@@ -46,7 +49,7 @@ const Timer = ({ min, sec, ms, setTime, setChanged, setLastTime }) => {
       <div id="sec"
         contentEditable={true}
         suppressContentEditableWarning={true}
-        dangerouslySetInnerHTML={{ __html: sec }}
+        dangerouslySetInnerHTML={{ __html: second }}
         onInput={setSec}
         className="timer"
       />
