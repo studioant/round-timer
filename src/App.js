@@ -13,54 +13,24 @@ function App() {
 
   // States for clock and round
   var defaultT = ('0' + 0).slice(-2)
-  let default_time = {m:defaultT, s:30, ms:0}
+  let default_time = {m:defaultT, s:0, ms:0}
+
   const [round, setRound] = useState(0)
   const [time, setTime] = useState(default_time)
   const [started, setStarted] = useState(false)
   const [inter, setInter] = useState(1)
-  const [paramsPresent, setParamsPresent] = useState(false);
   const [zero, setZero] = useState(false)
   const [changed, setChanged] = useState(false)
   const [reset, setReset] = useState(false)
   const [lastTime, setLastTime] = useState(default_time)
 
-  // When timer reaches zero, play the alarm sound
-  // useEffect(()=>{
-  //   if(time.ms === 0 && time.s === 0 && time.m === 0 && zero){
-  //     console.log(zero)
-  //     playAlarm()
-  //   }
-  // }, [zero, time])
-
-  // Set the time using parameters passed in the URL
   useEffect(()=>{
-    let min, sec
     const url_params = new URLSearchParams(window.location.search)
-    if (url_params.has('min') || url_params.has('sec')) 
-    {
-      if (url_params.has('min'))
-        min = url_params.get('min')
-      else
-        min = 0
-      if (url_params.has('sec'))
-        sec = url_params.get('sec')
-      else
-        sec = 0
-      if (sec > 59) {
-        alert('Seconds must be below 60')
-        sec = 0
-      }
-      if (min > 59) {
-        alert('Minutes must be below 60')
-        min = 0
-      }
-
-      if(paramsPresent)
-        setTime({ms:0, s:parseInt(sec), m:parseInt(min)})
-      if(!paramsPresent)
-        setParamsPresent(true)
-    }
-  }, [setTime, paramsPresent])
+    url_params.set('min', time.m)
+    url_params.set('sec', time.s)
+    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + url_params.toString();
+    window.history.pushState({}, '', newUrl);
+  }, [changed])
 
   // Set and clear the interval for the timer 
   useEffect(()=>{
@@ -70,6 +40,30 @@ function App() {
       setInter(setInterval(run, 10))
     }
   }, [started])
+
+  // Set the time using parameters passed in the URL
+  useEffect(()=>{
+    let min, sec
+    const url_params = new URLSearchParams(window.location.search)
+    if (url_params.has('min') || url_params.has('sec')) 
+    {
+      if (url_params.has('min')) min = url_params.get('min')
+      else min = 0
+      if (url_params.has('sec')) sec = url_params.get('sec')
+      else sec = 0
+      if (sec > 59) {
+        alert('Seconds must be below 60')
+        sec = 0
+      }
+      if (min > 59) {
+        alert('Minutes must be below 60')
+        min = 0
+      }
+
+      setTime({m:parseInt(min), s:parseInt(sec), ms:0})
+
+    } 
+  }, [])
 
   // Flip the started flag 
   const start = () => {
