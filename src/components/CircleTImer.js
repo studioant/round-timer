@@ -35,7 +35,8 @@ const CircleTimer = ({ min, sec, ms, started, changed, setChanged, setTimerTime,
                 strokeWidth = {50}
                 segments={2}
                 onComplete = {() => onComplete()}
-                colors = {[['#7a96ea'],['#1a961a']]}
+                colors={['#7a96ea', '#dc143c']}
+                colorsTime={[dur, 0]}
                 size = {600}
                 style={style}
                 >
