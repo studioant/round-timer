@@ -2,20 +2,30 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { useEffect, useState } from 'react';
 import Timer from './Timer';
 
+import alarm from "./../sounds/alarm.mp3"
+import bell from "./../sounds/bell.mp3"
+
 const CircleTimer = ({ min, sec, ms, started, changed, setChanged, setTimerTime, setStarted, setLastTime, reset }) => {
-    //console.log(sec)
     const [dur, setDur] = useState(0)
     const [time, setTime] = useState(false)
     const [showMessage, setShowMessage] = useState(false)
-
-    //console.log(dur)
+    const [sound, setSound] = useState({alarm:false, bell:true})
 
     useEffect(()=>{
         setDur((min*60) + sec)
         if(!time) setTime(true)
         if(reset) setShowMessage(false)
-        console.log(reset)
     }, [time, changed, reset])
+
+      // Play the audio
+    const playAlarm = () => {
+        var audio = new Audio(bell);
+        if (sound.bell)
+        audio = new Audio(bell)
+        if (sound.alarm)
+        audio = new Audio(alarm)
+        audio.play()
+    }
 
     const style = {
         display: 'inline-block !important'
@@ -24,6 +34,7 @@ const CircleTimer = ({ min, sec, ms, started, changed, setChanged, setTimerTime,
     const onComplete = () => {
         setShowMessage(true)
         setStarted(false)
+        playAlarm()
     }
 
     return (

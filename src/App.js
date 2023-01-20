@@ -9,9 +9,6 @@ import Clock from "./components/Clock"
 import Settings from "./components/Settings"
 import CircleTimer from "./components/CircleTimer"
 
-import alarm from "./sounds/alarm.mp3"
-import bell from "./sounds/bell.mp3"
-
 function App() {
 
   // States for clock and round
@@ -22,18 +19,18 @@ function App() {
   const [started, setStarted] = useState(false)
   const [inter, setInter] = useState(1)
   const [paramsPresent, setParamsPresent] = useState(false);
-  const [sound, setSound] = useState({alarm:false, bell:true})
   const [zero, setZero] = useState(false)
   const [changed, setChanged] = useState(false)
   const [reset, setReset] = useState(false)
   const [lastTime, setLastTime] = useState(default_time)
 
   // When timer reaches zero, play the alarm sound
-  useEffect(()=>{
-    if(time.ms === 0 && time.s === 0 && time.m === 0 && zero){
-      playAlarm()
-    }
-  }, [zero, time])
+  // useEffect(()=>{
+  //   if(time.ms === 0 && time.s === 0 && time.m === 0 && zero){
+  //     console.log(zero)
+  //     playAlarm()
+  //   }
+  // }, [zero, time])
 
   // Set the time using parameters passed in the URL
   useEffect(()=>{
@@ -57,7 +54,7 @@ function App() {
         alert('Minutes must be below 60')
         min = 0
       }
-      console.log(time)
+
       if(paramsPresent)
         setTime({ms:0, s:parseInt(sec), m:parseInt(min)})
       if(!paramsPresent)
@@ -92,15 +89,6 @@ function App() {
     setTime(lastTime)
     setChanged(true)
     setReset(true)
-  }
-
-  // Play the audio
-  const playAlarm = () => {
-    if (sound.bell)
-      var audio = new Audio(bell)
-    if (sound.alarm)
-      var audio = new Audio(alarm)
-    audio.play()
   }
 
   // Plus 1 second
@@ -138,7 +126,7 @@ function App() {
       if(updatedMs !== 0){
         updatedMs--
       }
-      
+
       // Update the time
       return setTime({ms:updatedMs, s:updatedSec, m:updatedMin})
     }

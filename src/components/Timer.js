@@ -1,19 +1,33 @@
 import { useEffect } from "react";
 
 const Timer = ({ min, sec, ms, setTime, setChanged, setLastTime }) => {
+
   var minute = min.toString().padStart(2, "0");
   var second = sec.toString().padStart(2, "0");
 
   const validateInput = (e) => {
     var input = e.target;
-    if (!isNaN(input.innerText)) {
-      console.log("Is a number: " + input)
-      console.log(min)
-    } else {
-      console.log("Not a number: " + input)
+    if (isNaN(input.innerText)) {
       e.preventDefault()
+      alert(input.innerText + " is not a number. Please enter a number")
       input.innerText = 0
     }
+  }
+
+  // Get timer text 
+  const minText = document.getElementById("min");
+  const secText = document.getElementById("sec");
+
+  if(minText){
+    minText.addEventListener("input", () => {
+      minText.innerText = minText.innerText.substring(0,2);
+    });
+  }
+  
+  if(secText){
+    secText.addEventListener("input", () => {
+      secText.innerText = secText.innerText.substring(0,2);
+    });
   }
 
   useEffect(() => {
@@ -24,8 +38,8 @@ const Timer = ({ min, sec, ms, setTime, setChanged, setLastTime }) => {
   })
 
   const setMin = (event) => {
-    setTime({ m: event.target.innerText, s:sec, ms: 0 })
-    setLastTime({ m: event.target.innerText, s:sec, ms: 0 })
+    setTime({ m:parseInt(event.target.innerText), s:sec, ms: 0 })
+    setLastTime({ m:parseInt(event.target.innerText), s:sec, ms: 0 })
     setChanged(true)
   }
 
