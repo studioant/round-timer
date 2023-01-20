@@ -23,13 +23,14 @@ function App() {
   const [changed, setChanged] = useState(false)
   const [reset, setReset] = useState(false)
   const [lastTime, setLastTime] = useState(default_time)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(()=>{
     const url_params = new URLSearchParams(window.location.search)
     url_params.set('min', time.m)
     url_params.set('sec', time.s)
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + url_params.toString();
-    window.history.pushState({}, '', newUrl);
+    if(loaded) window.history.pushState({}, '', newUrl);
   }, [changed])
 
   // Set and clear the interval for the timer 
@@ -60,7 +61,11 @@ function App() {
         min = 0
       }
 
+      console.log(min)
+
       setTime({m:parseInt(min), s:parseInt(sec), ms:0})
+
+      setLoaded(true)
 
     } 
   }, [])
